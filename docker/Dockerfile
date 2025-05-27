@@ -3,10 +3,25 @@ WORKDIR /var/www/html
 RUN apk update && apk add --no-cache \
     curl \
     unzip \
-    git
+    git \
+    zip
+
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 RUN curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN composer about
+
+# These services are needed by pecl to install xdebug
+RUN apk update && apk add --no-cache \
+    build-base \
+    gcc \
+    linux-headers \
+    autoconf 
+
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+RUN docker-php-ext-install pdo_mysql mysqli opcache
 
 # COPY ../server ./
