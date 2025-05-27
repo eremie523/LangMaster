@@ -1,0 +1,34 @@
+name: lang_learn
+
+services:
+  php-fpm:
+    image: php-8.3-fpm:latest
+    # Use the Dockerfile from the parent directory
+    build:
+      context: ../
+      dockerfile: /docker/Dockerfile
+      target: php-fpm
+    container_name: php-fpm
+    working_dir: /var/www/html
+    restart: always
+    environment:
+      - PHP_FPM_PORT=9000
+    ports:
+      - "9000:9000"
+    volumes:
+      - ../server:/var/www/html
+
+  nginx:
+    image: nginx:stable-alpine3.21-perl
+    container_name: nginx
+    volumes:
+      - type: bind
+        source: ../nginx/conf.d
+        target: /etc/nginx/conf.d
+      - type: bind
+        source: ../server
+        target: /var/www/html
+    ports:
+      - "80:80"
+    depends_on:
+      - php-fpm
