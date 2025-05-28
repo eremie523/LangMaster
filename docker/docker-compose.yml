@@ -32,3 +32,17 @@ services:
       - "80:8000"
     depends_on:
       - php-fpm
+
+  react-client-dev:
+    image: react-client-current-slim:latest
+    build:
+      context: ../
+      dockerfile: /docker/Dockerfile
+      target: react-client-dev
+    container_name: react-client-dev
+    volumes:
+      - type: bind
+        source: ../client
+        target: /app
+    ports:
+      - 4000:3000
