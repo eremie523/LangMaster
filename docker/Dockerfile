@@ -25,3 +25,9 @@ RUN pecl install xdebug \
 RUN docker-php-ext-install pdo_mysql mysqli opcache
 
 # COPY ../server ./
+
+
+FROM node:current-slim as react-client-dev
+WORKDIR /app
+COPY ./client/ ./
+CMD [ "npm", "run", "dev" ]
