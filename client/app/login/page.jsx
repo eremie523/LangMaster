@@ -1,4 +1,3 @@
-// app/login/page.jsx or pages/login.jsx
 'use client';
 
 import { motion } from 'framer-motion';

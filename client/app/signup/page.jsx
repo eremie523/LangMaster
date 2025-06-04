@@ -1,4 +1,3 @@
-// app/signup/page.jsx or pages/signup.jsx (depending on your Next.js version)
 'use client';
 
 import { motion } from 'framer-motion';
