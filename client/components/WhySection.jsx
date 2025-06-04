@@ -49,7 +49,7 @@ const WhySection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.2, duration: 0.5 }}
               viewport={{ once: true }}
-              className="bg-neutral-50 rounded-xl p-6 shadow-sm text-center"
+              className="bg-[#f5ecdb] rounded-xl p-6 shadow-sm text-center"
             >
               <div
                 className={`mx-auto mb-4 w-12 h-12 flex items-center justify-center rounded-full ${feature.bg}`}
