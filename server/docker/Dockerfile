@@ -43,5 +43,14 @@ RUN apk update && apk add --no-cache libpq-dev php-pgsql \
 COPY ./public ./public
 COPY ./src ./src
 
-EXPOSE 9000
+FROM nginx:alpine
+
+# Remove default config
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Copy custom nginx config
+COPY ../conf/nginx/default.conf /etc/nginx/conf.d/default.conf
+
+# Expose port 80 for HTTP traffic
+EXPOSE 80
 
