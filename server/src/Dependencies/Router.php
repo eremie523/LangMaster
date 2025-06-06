@@ -5,10 +5,16 @@ declare(strict_types=1);
 namespace LangLearn\Dependencies;
 
 use Exception;
+use LangLearn\AttributeClasses\RouteAttribute;
+use Reflection;
+use ReflectionAttribute;
+use ReflectionClass;
+use ReflectionProperty;
 
 class Router
 {
     private array $entries = [];
+    private array $neededRouteProperties = ["path", "method"];
 
     private function register(string $method, string $route, callable|array $action): self
     {
@@ -52,5 +58,22 @@ class Router
         if (!method_exists($class, $method)) throw new Exception("Method does not exists");
 
         return call_user_func_array([new $class, $method], []);
+    }
+
+    public function registerAttributeRoute(string $controller): self
+    {
+        $reflection = new \ReflectionClass($controller);
+        $methods = $reflection->getMethods(\ReflectionMethod::IS_PUBLIC);
+
+        foreach ($methods as $method) {
+            $routeAttributes = $method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
+
+            foreach ($routeAttributes as $routeAttribute) {
+                $routeClass = $routeAttribute->newInstance();
+                $this->register($routeClass->method, $routeClass->path, [$controller, $method->getName()]);
+            }
+        }
+
+        return $this;
     }
 }
