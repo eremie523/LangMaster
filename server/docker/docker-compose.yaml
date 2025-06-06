@@ -1,0 +1,29 @@
+name: "lang_learn_application"
+
+services:
+  php_fpm:
+    image: lang_learn_app:php-fpm-latest
+    container_name: lang_learn_php_fpm
+    build:
+      dockerfile: docker/Dockerfile
+      target: php-server
+      context: ../
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+    env_file:
+      - ../.env
+
+  nginx_server:
+    image: nginx:stable-alpine3.21-perl
+    container_name: lang_learn_nginx_server
+    working_dir: /var/www/html
+    volumes:
+      - ../:/var/www/html
+      - ../conf/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "7000:8000"
+    env_file:
+      - ../.env
+    depends_on:
+      - php_fpm
