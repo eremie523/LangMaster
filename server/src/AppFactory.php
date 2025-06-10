@@ -60,9 +60,29 @@ class AppFactory
 
     public function run()
     {
-        $this->pre_run();
+        try {
+            $this->pre_run();
 
-        echo $this->router->resolve($_SERVER["REQUEST_METHOD"], $_SERVER["REQUEST_URI"]);
+            echo $this->router->resolve($_SERVER["REQUEST_METHOD"], $_SERVER["REQUEST_URI"]);
+        } catch (\Exception $th) {
+            if (isset($_ENV["APP_ENV"]) && ($_ENV["APP_ENV"] === "development")) {
+                echo json_encode([
+                    "status" => "error",
+                    "message" => $th->getMessage(),
+                    "trace" => $th->getTraceAsString()
+                ], JSON_PRETTY_PRINT);
+            } else {
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "An error occurred. Please try again later."
+                ], JSON_PRETTY_PRINT);
+            }
+        } catch (\Throwable $th) {
+            echo json_encode([
+                "status" => "error",
+                "message" => "An unexpected error occurred."
+            ], JSON_PRETTY_PRINT);
+        }
     }
 
     private function registerRoutes(): void {}
