@@ -43,5 +43,3 @@ RUN apk update && apk add --no-cache libpq-dev php-pgsql \
 COPY ./public ./public
 COPY ./src ./src
 
-EXPOSE 9000
-

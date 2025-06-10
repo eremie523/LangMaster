@@ -8,7 +8,8 @@ services:
       dockerfile: docker/Dockerfile
       target: php-server
       context: ../
-    port: 9000:9000
+    ports:
+      - 9000:9000
     dns:
       - 8.8.8.8
       - 1.1.1.1
