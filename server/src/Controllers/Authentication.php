@@ -16,7 +16,7 @@ class Authentication
     public function login(): string
     {
         // Here you would typically handle the login logic, such as validating credentials.
-        if (!Index::isNotEmptyValInArray($_POST['json'], ['email', 'password', 'remember_me'])) {
+        if (!Index::isNotEmptyValInArray($_POST['json'], ['email', 'password'])) {
             throw new Exception("Missing required fields: email, password, or remember_me");
         };
 
@@ -38,10 +38,17 @@ class Authentication
         $user["preferred_language"] = strtolower($user["preferred_language"]); // Add remember_me to the user data
         $user["proficiency_level"] = strtolower($user["proficiency_level"]);
 
+        if (isset($remember_me) && $remember_me) {
+            $user["remember_me"] = true; // Add remember_me to the user data
+        } else {
+            $user["remember_me"] = false; // Add remember_me to the user data
+            $remember_me = false; // Default to false if not set
+        }
+
         return json_encode([
             "status" => "success",
             "message" => "Logged In Successfully",
-            "jwt" => Index::generateJwt(["email" => $email], $_ENV["JWT_SECRET"], ((bool) $remember_me) ? (3600 * 24 * 14) : (3600 * 12))
+            "jwt" => Index::generateJwt(["email" => $user], $_ENV["JWT_SECRET"], ((bool) $remember_me) ? (3600 * 24 * 14) : (3600 * 12))
         ]);
     }
 
