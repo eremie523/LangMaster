@@ -30,3 +30,16 @@ body {
          focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 
          transition duration-200 placeholder-gray-400;
 }
+
+.input-style {
+  @apply w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-800 
+         focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 
+         transition duration-200 placeholder-gray-400;
+}
+
+body {
+  background-color: #f9f6f1;
+  color: #333;
+}
+
+
