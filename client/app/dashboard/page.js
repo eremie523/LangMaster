@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import ProgressCard from "@/components/ProgressCard";
 import LessonCard from "@/components/LessonCard";
 import Footer from "@/components/Footer";
+import PracticeSection from '@/components/PracticeSection';
 
 
 
@@ -41,7 +42,7 @@ export default function Dashboard() {
       title="Greetings and Introductions"
       description="Learn basic Yoruba greetings and how to introduce yourself."
       duration={15}
-      image="./"
+      image="/nig.jpg"
     />
 
     <LessonCard
@@ -50,10 +51,11 @@ export default function Dashboard() {
       title="Numbers and Counting"
       description="Learn to count from 1-20 in Yoruba and use numbers in conversation."
       duration={20}
-      image="./"
+      image="/nig.jpg"
     />
   </div>
 </section>
+<PracticeSection />
       </main>
       <Footer />
     </div>

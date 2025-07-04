@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { FaGlobeAfrica, FaUser } from 'react-icons/fa';
 import {
@@ -7,8 +8,7 @@ import {
   MessageCircle,
   Globe,
   User,
-} from "lucide-react";
-
+} from 'lucide-react';
 
 export default function Navbar() {
   return (
@@ -23,28 +23,38 @@ export default function Navbar() {
         <span className="font-bold text-xl text-yellow-500">Master</span>
       </div>
 
-     <ul className="hidden md:flex gap-8 text-sm text-gray-700 font-medium items-center">
-  <li className="flex items-center gap-2 text-green-800 border-b-2 border-green-700 pb-1">
-    <LayoutDashboard size={16} />
-    Dashboard
-  </li>
-  <li className="flex items-center gap-2 hover:text-green-800 transition">
-    <BookOpen size={16} />
-    Lessons
-  </li>
-  <li className="flex items-center gap-2 hover:text-green-800 transition">
-    <MessageCircle size={16} />
-    Conversation
-  </li>
-  <li className="flex items-center gap-2 hover:text-green-800 transition">
-    <Globe size={16} />
-    Cultural Insights
-  </li>
-  <li className="flex items-center gap-2 hover:text-green-800 transition">
-    <User size={16} />
-    Profile
-  </li>
-</ul>
+      <ul className="hidden md:flex gap-8 text-sm text-gray-700 font-medium items-center">
+        <li>
+          <Link href="/dashboard" className="flex items-center gap-2 text-green-800 border-b-2 border-green-700 pb-1">
+            <LayoutDashboard size={16} />
+            Dashboard
+          </Link>
+        </li>
+        <li>
+          <Link href="/lessons" className="flex items-center gap-2 hover:text-green-800 transition">
+            <BookOpen size={16} />
+            Lessons
+          </Link>
+        </li>
+        <li>
+          <Link href="/conversation" className="flex items-center gap-2 hover:text-green-800 transition">
+            <MessageCircle size={16} />
+            Conversation
+          </Link>
+        </li>
+        <li>
+          <Link href="/cultural-insights" className="flex items-center gap-2 hover:text-green-800 transition">
+            <Globe size={16} />
+            Cultural Insights
+          </Link>
+        </li>
+        <li>
+          <Link href="/profile" className="flex items-center gap-2 hover:text-green-800 transition">
+            <User size={16} />
+            Profile
+          </Link>
+        </li>
+      </ul>
 
       <div className="flex items-center gap-4">
         <span className="text-sm">Learning: <strong>yoruba</strong></span>
