@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-use LangLearn\AppFactory;
-use LangLearn\Dependencies\Router;
+use LangLearn\Bootstrap;
 
 require_once "../vendor/autoload.php";
 
-AppFactory::create(new Router())->run();
+new Bootstrap;
